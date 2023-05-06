@@ -27,6 +27,8 @@ MPU9250Driver::MPU9250Driver() : Node("mpu9250publisher")
   mpu9250_->setAccelerometerOffset(this->get_parameter("accel_x_offset").as_double(),
                                    this->get_parameter("accel_y_offset").as_double(),
                                    this->get_parameter("accel_z_offset").as_double());
+  // mpu9250_->setFrequency(this->get_parameter("frequency").as_int()); 
+
   // Check if we want to calibrate the sensor
   if (this->get_parameter("calibrate").as_bool()) {
     RCLCPP_INFO(this->get_logger(), "Calibrating...");
@@ -37,7 +39,7 @@ MPU9250Driver::MPU9250Driver() : Node("mpu9250publisher")
   // Create publisher
   publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
   std::chrono::duration<int64_t, std::milli> frequency =
-      1000ms / this->get_parameter("gyro_range").as_int();
+      1000ms / 10;
   timer_ = this->create_wall_timer(frequency, std::bind(&MPU9250Driver::handleInput, this));
 }
 

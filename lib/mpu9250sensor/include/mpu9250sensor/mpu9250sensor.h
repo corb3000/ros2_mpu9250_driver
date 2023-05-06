@@ -40,6 +40,7 @@ class MPU9250Sensor {
   void setGyroscopeOffset(double gyro_x_offset, double gyro_y_offset, double gyro_z_offset);
   void setAccelerometerOffset(double accel_x_offset, double accel_y_offset, double accel_z_offset);
   void calibrate();
+  void setFrequency();
 
  private:
   void initImuI2c() const;
